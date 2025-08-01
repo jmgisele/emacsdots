@@ -76,6 +76,12 @@ M-%      Shortcut for replace-string
 C-space  Set mark (emacs often sets)
 C-x C-x   Return to mark (return to prev)
 C-u C-space Cycle mark
+M-q            Enter query replace mode
+            ! to replace all
+            y to replace current
+            n to go to next
+            RET exit
+
 * window management
 C-x 0     Close selected window, do NOT kill buffer
 C-x 1     Close all windows EXCEPT selected
@@ -123,6 +129,9 @@ C-z        Suspend Emacs
 C-h m      View mode documentation
 * prefix arguments
 C-u [number] [final command] - eg C-u 8 C-f
+
+* Meta Commands
+
 * packages
 List available packages?
       M-x list-packages
