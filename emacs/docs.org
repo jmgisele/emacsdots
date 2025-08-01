@@ -1,0 +1,154 @@
+** General notes
+- Can import calendars ! might wanna set that up on a schedule
+- Can get notifications - notify or appt
+- Todos shouldn't have to be all in same file! can be scattered in notes
+** Notes on setting up a flow
+- standardize how to organize notes
+- things to think about:
+  - how many different files?
+  - how to keep things not too nested
+  - how many states of TODO?
+  - what goes in header vs below
+  - want ability for todo to have chunks eg 2/5
+  - how to negotiage tags
+** Org Agenda
+- scheduled is when it should be worked on
+- deadline is when it's due
+- timestamp is when something will happen
+*** Time insertion
+- quite flexible - eg can just say 'Tuesday' and it knows what u mean
+** Capture
+- Way to 'capture' stuff into org
+** Org store
+- org-store-link stores link to curr location, so it can get spit out into Org buffer
+** TODOS
+Any headline which starts w TODO is a todo (or KEYWORD)
+can add the following
+:PROPERTIES:
+:ORDERED: t
+:END:
+to make sure that entries in current subfolder have to be done sequentially
+or : NOBLOCKING : to exempt an entry from that
+** Commands
+*** Major
+C-c l        Org store link
+C-c a        Org Agenda
+C-c c        Org Capture
+*** Navigation
+C-c /        Sparse tree
+C-c / t      Sparse tree of todos
+C-c / m      Sparse tree of tags (C-u prefix to ignore non todos)
+M-x org-agenda m Global list of tag matches from all agenda files (M for only todos)
+Tab          When on header - cycle visibility
+Sh-Tab       Cycle visibility structure
+C-u x3 TAB   Show all
+C-c C-r      Reveal context around point
+C-c C-n      Next heading
+C-c C-p      Prev heading
+C-c C-f      Next same level heading
+C-c C-b      Next same level heading
+C-c C-u      Back to higher level heading(up)
+C-c C-j      Jump (with buffer to search)
+C-c C-o      Follow link
+*** Editing
+Tab          Cycle indent (for list)
+C-c C-t      Cycle todo status
+Sh-[l/r]     Cycle todos or li style but convenient lol
+C-u C-c C-t  Add note to TODO state change
+Sh-M-RET     New TODO below current
+M-RET        New item (can be in middle of row)
+C-RET        New heading at end of current subtree
+M-S-RET      New TODO
+C-S-RET      New TODO end of subtree
+TAB          Beginning of entry, no text: become child of prev
+M-Sh-u/d     Switch line up/down with prev line   
+M-Sh-left    Promote subtree
+M-Sh-right   Demote subtree
+C-c @        Mark subtree
+C-c C-x C-w  Kill subtree
+C-c C-x M-w  Copy subree
+C-c C-x C-y  Yank subtree
+C-c ^'       Sort same-level entries
+C-c C-c      Cycle checkboxes
+C-c C-l      Edit or insert link (delete before first char to change syntax)
+C-c C-q      Add new tags to current line
+C-c C-c      Within a [ / ] - activate subtask tracking
+C-c C-w      Move subtree to different header in same file
+*** Drawers
+C-c C-x d    Insert drawer
+C-c C-z      Add timestamped note to LOGBOOK drawer
+Tab          Cycle drawer visibility
+*** Agenda
+C-c C-d      Deadline
+C-c C-s      Schedule
+C-c .        Timestamp
+*** Archiving
+C-c C-x C-a  (org-archive-subtree-default) Archive the current entry using the command specified in the variable org-archive-default-command.
+C-c C-x C-s  Archive the subtree starting at point position to the location given by org-archive-location.
+*** Blocks
+'#+STARTUP: hideblocks' or nohideblocks for folding any blocks
+#+BEGIN_EXAMPLE
+    Here is a space for source code, time log info, etc
+    Here is more info.
+    blah blah blah
+#+END_EXAMPLE
+*** Syntax
+- TODO written all caps, as are built in tags w special meaning, lowercase for user tags
+- user defined properties capitalized first letter, builtins w special meaning all caps
+- keywords and blocks written with caps
+**** Links
+- Links: [ [LINK] [Description] ] or [ [LINK] ]  (without spaces)
+- keyword/dedicated target:< <My target> >
+-  example: [[link 1]] [[* link 2]]
+-  in between
+-  nav to <<link 1>>
+- links to files should start with either `file:` or `./` or `/` etc
+*** HABITS
+- Habit is a TODO perpetually
+- STYLE prop is set to habit
+- add SCHEDULED to define when
+- LAST_REPEAT can be added too
+- shows how u did a la 
+Blue
+     If the task was not to be done yet on that day.
+Green
+     If the task could have been done on that day.
+Yellow
+     If the task was going to be overdue the next day.
+Red
+     If the task was overdue on that day.
+syntax
+#+BEGIN_HABIT
+     ** TODO Shave
+        SCHEDULED: <2009-10-17 Sat .+2d/4d>
+        :PROPERTIES:
+        :STYLE:    habit
+        :LAST_REPEAT: [2009-10-19 Mon 00:36]
+        :END:
+        - State "DONE"       from "TODO"       [2009-10-15 Thu]
+        - State "DONE"       from "TODO"       [2009-10-12 Mon]
+        - State "DONE"       from "TODO"       [2009-10-10 Sat]
+        - State "DONE"       from "TODO"       [2009-10-04 Sun]
+        - State "DONE"       from "TODO"       [2009-10-02 Fri]
+        - State "DONE"       from "TODO"       [2009-09-29 Tue]
+        - State "DONE"       from "TODO"       [2009-09-25 Fri]
+        - State "DONE"       from "TODO"       [2009-09-19 Sat]
+        - State "DONE"       from "TODO"       [2009-09-16 Wed]
+        - State "DONE"       from "TODO"       [2009-09-12 Sat]
+#+END_HABIT
+C-u K to toggle seeing habits, jsut K to toggle seeing them at all
+*** Priorities
+- put an [#A] after the keyword . priorities are A B C by defaults
+- only hooked into by agenda
+*** Subtasks, progress, tree
+- [ / ] or [ % ] without spaces after the todo will keep track of subtree
+- if you want it recursive and not children, add that word to the COOKIE_DATA property
+- checkboxes are great bc they are not included in global todo, so good for small notes a la grocery
+- C-c C-c within to 'activate' the tracking for / or %
+*** Tags
+- associate related information using tree, children inherit the :tags:of:parent:
+- can set global via
+     "#+TAGS: @work @home @tennisclub"
+    " #+TAGS: laptop car pc sailboat"
+  without the ""s
+- are very powerful, definitely look into this more
