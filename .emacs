@@ -333,9 +333,9 @@
 (keymap-global-set "C-c C-s" 'org-schedule)
 
 ;; org dir
-(setq org-directory "/home/jgisele/Documents/emacs/org")
+(setq org-directory "~/emacs/org/")
 ;; org agenda
-(setq org-agenda-files '("/home/jgisele/Documents/emacs/org" "/home/jgisele/Documents/emacs/org/SHARED/"))
+(setq org-agenda-files '("~/emacs/org/" "~/emacs/org/SHARED/"))
 ;; Associate all org files with org mode
 (add-to-list 'auto-mode-alist '(".org" . org-mode))
 ;; Follow the links
@@ -344,11 +344,11 @@
 (add-hook 'org-mode-hook 'org-indent-mode)
 ;; capture templates
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Documents/emacs/org/SHARED/todos.org" "Captured")
+      '(("t" "Todo" entry (file+headline "~/emacs/org/SHARED/todos.org" "Captured")
       	 "** TODO %?\n  %i\n  %a")
-       ("j" "Jobs" entry (file+datetree "~/Documents/emacs/org/jobs.org")
+       ("j" "Jobs" entry (file+datetree "~/emacs/org/jobs.org")
 	 "* Job - %?\n  %U\n  %i\n")
-	("d" "Diary" entry (file+datetree "~/Documents/emacs/org/diary.org")
+	("d" "Diary" entry (file+datetree "~/emacs/org/diary.org")
 	 "* %?\nEntry  %U\n  %i\n  %a")))
  
 ;; refiling
