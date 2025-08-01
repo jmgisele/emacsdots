@@ -1,3 +1,0 @@
-* when signal breaks
-sudo nano /usr/share/applications/signal-desktop.desktop
-Exec=signal-desktop --password-store="gnome-libsecret" -- %u
