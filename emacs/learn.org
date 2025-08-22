@@ -1,0 +1,6 @@
+* Things you still want to learn how to do
+** scroll backwards in terminal quickly
+** use magit
+** use dired efficiently
+** move around lexical blocks in emacs buffer
+** autobalancing parens and brackets (see moving by parens, matching parens)
