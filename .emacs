@@ -5,6 +5,7 @@
 ;; mostly from https://www.shaneikennedy.xyz/blog/emacs-intro 
 (require 'package)
 
+
 ;; Nice macro for updating lists in place.
 (defmacro append-to-list (target suffix) 
   "Append SUFFIX to TARGET in place."
