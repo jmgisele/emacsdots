@@ -84,6 +84,9 @@ M-u    Uppercase (following)
 M-c    First lettter capitalized (following)
 ** comments
 C-x C-;  Comment out line
+M-;      Comment out selection
+** format
+C-M-\    Format selection
 * search find replace
 C-s          Forward Search (repeat to jump, del to go back,  return to term)
 C-r          Reverse Search (return to term)
@@ -93,10 +96,10 @@ C-space  Set mark (emacs often sets)
 C-x C-x   Return to mark (return to prev)
 C-u C-space Cycle mark
 M-q            Enter query replace mode
-            ! to replace all
-            y to replace current
-            n to go to next
-            RET exit
+! to replace all
+y to replace current
+n to go to next
+RET exit
 C-c C-f     Find file at point (file imports in source code)
 * window management
 C-x 0     Close selected window, do NOT kill buffer
@@ -148,30 +151,30 @@ C-u [number] [final command]       Repeat eg C-u 8 C-f
 C-x z                              Repeat last command
 * packages
 List available packages?
-      M-x list-packages
+M-x list-packages
 Package not found!!!!
-      M-x package-refresh-contents
+M-x package-refresh-contents
 Install package
-     Add to .emacs or
+Add to .emacs or
 * file management
 Recover file on crash?
-      M-x recover-this-file [normal file]
+M-x recover-this-file [normal file]
 * mode management
 Toggle auto fill mode (break too wide lines)
-      M-x auto-fill-mode
+M-x auto-fill-mode
 Toggle line wrap
-      M-x toggle-truncate-lines               
+M-x toggle-truncate-lines
 * project management
-    How can I register another project?
-                M-x projectile-add-known-project
-    How can I switch to another project?
-                M-x projectile-switch-project
-    How can I search for other files in this project?
-                M-x projectile-find-file
-    How can I do find-and-replace in this project?
-                M-x projectile-replace
-    How can I search for strings/words in this project?
-                M-x projectile-grep or M-x projectile-ag or M-x projectile-rg (I recommend rg but it's seperate from emacs so you'll need to install it. If you don't want to bother with that, use projectile-grep, but grep is noticeably slow on larger projects).
+How can I register another project?
+M-x projectile-add-known-project
+How can I switch to another project?
+M-x projectile-switch-project
+How can I search for other files in this project?
+M-x projectile-find-file
+How can I do find-and-replace in this project?
+M-x projectile-replace
+How can I search for strings/words in this project?
+M-x projectile-grep or M-x projectile-ag or M-x projectile-rg (I recommend rg but it's seperate from emacs so you'll need to install it. If you don't want to bother with that, use projectile-grep, but grep is noticeably slow on larger projects).
 ** running code
 M-x run-python   Start a python env
 C-c C-c          Run current buffer in that (python) env

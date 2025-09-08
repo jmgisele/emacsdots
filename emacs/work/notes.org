@@ -1,0 +1,141 @@
+* general todos
+** TODO start dotnet book 1 :')
+it's on ur ereader!
+* Config notes
+** vscode extensions
+- .net install tool
+- angular language service
+- c#
+- c# dev kit
+- gitlens
+- prettier
+- eslint
+- rust-analyzer (?)
+- remote - ssh (?)
+- container tools (?)
+- github actions (?)
+** .emacs
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file+headline "~/emacs/org/todos.org" "Captured")
+           "** TODO %?\n %i\n %a")
+          ("d" "Daily Notes" entry (file+datetree "~/emacs/org/daily.org")
+           "* %?\nEntered on %U\n %i\n %a")))
+
+  (setq org-archive-location "%s_archive::datetree/* Finished Tasks")
+#+END_SRC
+** todos
+#+ARCHIVE: daily.org::datetree/* Finished TODOs
+** backups
+*** instructions
+#+BEGIN_SRC emacs-org
+  1. Go to Settings > Privacy & Security > Full Disk and add bash. You may have to open Finder > Go > /bash > Drag & Drop the bash icon into the list (This is an insane way to set up a system why is there not an easily accessible command for this)
+  2. Go to the Mac application Script Editor
+     Paste the following: 
+     display notification "Hello from me" with title "Hello"
+     Run the command
+     When prompted, allow notifications
+  3. Make a shell script w ur desired rsync backup commands and put it somewhere (example in backups.example.sync.sh)
+     make sure to chmod +x it to make it executable
+     you can run it from a terminal to confirm it works 
+  4. Make a file called eg backups.sync.plist (must end w plist) (see file for example)
+     in ~/Library/LaunchAgents/
+     and point it at your shell script and configure so it runs when you want it to
+  5. run id -u and copy output
+  6. run `launchctl bootstrap gui/{output of id -u} ~/Library/LaunchAgents/backups.sync.plist` w the output of id -u as indicated (eg gui/502)
+  7. if you ever need to disable or update to point at an edited config file, run the same command but w bootout. and then the bootstrap command again if needed, to reload
+  8. This will run I believe when the user is logged in even if machine is idle
+  9. But NOT if the drive is not attached!! So have to manually attach the drive for this to run successfully.
+  10. Will append logs to stdout/in files configured in the plist file and also give you graphical notifications which is nice
+  # Helpful links and docs
+[Info on giving bash access](https://apple.stackexchange.com/questions/376474/enabling-bin-bash-on-catalina-invisible-to-system-preferences-security-p)
+
+[Good launchd docs](https://www.launchd.info/)
+
+[Launchctl man pages](https://ss64.com/mac/launchctl.html)
+
+[Older launchctl man pages??](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html)
+
+[Medium dot com article with basic script for hello world](https://apple.stackexchange.com/questions/376474/enabling-bin-bash-on-catalina-invisible-to-system-preferences-security-p)
+#+END_SRC
+*** shell script
+#+BEGIN_SRC shell
+  #!/bin/sh
+
+DST="/Volumes/whatever/backups" # change me to root of destination
+trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
+
+echo "Starting backup $(date +"%Y-%m-%d %H:%M:%S")"
+if [ -d ${DST}] 
+then
+      echo "Mounted! Starting sync."
+      /usr/bin/rsync -av /source/directory/with/files/to/back/up ${DST}/relative/path/they/should/go/into
+      /usr/bin/rsync -av /second/source/directory ${DST}/relative/path/for/second/dir
+      echo "Success! $(date +"%Y-%m-%d %H:%M:%S")"
+else
+    echo "Not mounted :( can't sync"
+    (exit 2) 
+fi
+
+global_exit=$?
+
+if [ ${global_exit} -eq 0 ]; then
+    echo "Backup finished successfully."
+    osascript -e 'display notification "Backup finished successfully." with title "Backups"' 
+elif [ ${global_exit} -eq 1 ]; then
+    echo "Backup finished with warnings."
+    osascript -e 'display notification "Backup finished with warnings." with title "Backups"' 
+else
+    echo "Backup finished with errors."
+    osascript -e 'display notification "Backup finished with errors." with title "Backups"' 
+fi
+#+END_SRC
+*** plist
+#+BEGIN_SRC plist
+backups.sync.plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>backups.sync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/path/to/my/shell/script.sh</string> 
+    </array>
+
+    <!-- in seconds - this is 1x/hr -->
+    <key>StartInterval</key>
+    <integer>3600</integer>
+
+    <key>StandardErrorPath</key>
+    <string>/path/to/a/file/which/stderr/logs/to</string>
+
+    <key>StandardOutPath</key>
+    <string>/path/to/a/file/which/stdout/logs/to</string>
+
+    <!-- change these two keys if you want to backup large files -->
+    <key>HardResourceLimits</key>
+    <dict>
+    <key>FileSize</key>
+    <integer>1048576</integer>
+    </dict>
+
+    <key>SoftResourceLimits</key>
+    <dict>
+    <key>FileSize</key>
+    <integer>524288</integer>
+    </dict>
+
+</dict>
+</plist>
+#+END_SRC 
+* what i did at job
+- get a running count of NG usage
+- look thru old onenote
+- summarize github actions migration
+- handled deployments for several months
+- cleaned up enterprise wfm
+- since jan 1 2023, 81,399,169 mins in NG 154 calendar years of continuous time 

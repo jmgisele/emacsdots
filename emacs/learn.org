@@ -4,3 +4,11 @@
 ** use dired efficiently
 ** move around lexical blocks in emacs buffer
 ** autobalancing parens and brackets (see moving by parens, matching parens)
+** better projectile bindings for searching projects
+* Config to set up
+** Enable pixel scroll precision mode for images
+** Zsh/fish in shell
+** Switch to ghost & fish
+** Keep reading emacs manual 
+** direnv for python
+** configure the lsp popups better
