@@ -107,6 +107,9 @@
 ;; (setq wrap-prefix "")
 
 
+;; whitespace linting etc
+(setq-default tab-width 4)
+(setq typescript-ts-mode-indent-offset 4)
 ;;
 ;; WINDOW/FRAME MANAGEMENT
 ;;
@@ -123,6 +126,18 @@
    ("M-<right>" . windmove-right)
    ("M-<up>" . windmove-up)
    ("M-<down>" . windmove-down)))
+(use-package transpose-frame
+  :ensure nil
+  :bind*
+  (("S-<right>" . transpose-frame)
+   ("S-<left>" . transpose-frame)))
+(use-package buffer-move
+  :ensure nil
+  :bind*
+  (("C-S-<up>" . buf-move-up)
+   ("C-S-<down>" . buf-move-down)
+   ("C-S-<left>" . buf-move-left)
+   ("C-S-<right>" . buf-move-right)))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
