@@ -39,7 +39,6 @@
 (setq custom-file "~/.emacs.d/custom.el") ;; Without this emacs will dump generated custom settings in this file
 (load custom-file 'noerror)
 
-
 ;;
 ;; BACKUPS & AUTOSAVES
 ;;
@@ -77,6 +76,7 @@
 (set-face-foreground 'font-lock-comment-face "floral white")
 (set-face-foreground 'font-lock-string-face "medium aquamarine")
 (set-face-foreground 'font-lock-builtin-face "LightPink2")
+
 ;; padding
 (use-package spacious-padding
   :init
@@ -104,12 +104,33 @@
 ;; wrap lines when overflow
 (setq truncate-lines nil)
 (setq truncate-partial-width-windows nil)
-;; (setq wrap-prefix "")
-
 
 ;; whitespace linting etc
-(setq-default tab-width 4)
-(setq typescript-ts-mode-indent-offset 4)
+(setq-default tab-width 2)
+(setq typescript-ts-mode-indent-offset 2)
+(setq typescript-indent-level 2)
+(setq js-indent-level 2)
+
+;; startup
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startupify-list '(dashboard-insert-banner
+                                    dashboard-insert-newline
+                                    dashboard-insert-init-info
+                                    dashboard-insert-items))
+  (setq dashboard-startup-banner "/home/jgisele/.dotfiles/emacs/shiny_small.webp")
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (setq dashboard-items '((recents   . 5)
+                          (projects  . 7)
+                          (agenda    . 5)))
+  (setq dashboard-footer-messages '(""))
+  (setq dashboard-projects-backend 'projectile)
+  (setq dashboard-image-banner-max-height 100))
+
+
 ;;
 ;; WINDOW/FRAME MANAGEMENT
 ;;
@@ -197,6 +218,12 @@
 (use-package counsel-projectile
   :init (counsel-projectile-mode))
 
+;; lets u run multi-occur on all project files, not just open
+(use-package noccur
+  :config
+  :bind
+  (("C-c o" . noccur-project)))
+
 ;; finding stuff more easily
 (recentf-mode 1)
 (setq history-length 250)
@@ -255,7 +282,6 @@
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
 	       (python-mode . lsp)
 	       (rust-mode . lsp)
-	       (lisp-mode . lsp)
          (typescript-ts-mode . lsp)
 	       (rsjx-mode . lsp)
          (tsx-ts-mode . lsp)
@@ -462,8 +488,8 @@
 (use-package emacs
   :init
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2))
+  ;;  (setq-default indent-tabs-mode nil)
+  )
 
 
 ;; overriding irritating defaults
